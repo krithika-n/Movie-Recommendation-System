@@ -33,7 +33,7 @@ try:
         k=k+1
     no_actors=len(no_actors_set)
 
-    my_array=np.array([],float)              #initialize numpy array
+    my_array=np.array([],float)              #initialize numpy array for the transition matrix
     np.set_printoptions(threshold=np.nan)
 
     for actorA in no_actors_set:
