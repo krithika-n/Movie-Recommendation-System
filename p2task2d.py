@@ -128,23 +128,23 @@ for i in range(0,5):
     rls5[i][0]=rateId
 
 #sorting the matrices in descending order
-tls1[tls1[:,1].argsort()[::-1]]
-tls2[tls2[:,1].argsort()[::-1]]
-tls3[tls3[:,1].argsort()[::-1]]
-tls4[tls4[:,1].argsort()[::-1]]
-tls5[tls5[:,1].argsort()[::-1]]
+tls1=tls1[tls1[:,1].argsort()[::-1]]
+tls2=tls2[tls2[:,1].argsort()[::-1]]
+tls3=tls3[tls3[:,1].argsort()[::-1]]
+tls4=tls4[tls4[:,1].argsort()[::-1]]
+tls5=tls5[tls5[:,1].argsort()[::-1]]
 
-mls1[mls1[:,1].argsort()[::-1]]
-mls2[mls2[:,1].argsort()[::-1]]
-mls3[mls3[:,1].argsort()[::-1]]
-mls4[mls4[:,1].argsort()[::-1]]
-mls5[mls5[:,1].argsort()[::-1]]
+mls1=mls1[mls1[:,1].argsort()[::-1]]
+mls2=mls2[mls2[:,1].argsort()[::-1]]
+mls3=mls3[mls3[:,1].argsort()[::-1]]
+mls4=mls4[mls4[:,1].argsort()[::-1]]
+mls5=mls5[mls5[:,1].argsort()[::-1]]
 
-rls1[rls1[:,1].argsort()[::-1]]
-rls2[rls2[:,1].argsort()[::-1]]
-rls3[rls3[:,1].argsort()[::-1]]
-rls4[rls4[:,1].argsort()[::-1]]
-rls5[rls5[:,1].argsort()[::-1]]
+rls1=rls1[rls1[:,1].argsort()[::-1]]
+rls2=rls2[rls2[:,1].argsort()[::-1]]
+rls3=rls3[rls3[:,1].argsort()[::-1]]
+rls4=rls4[rls4[:,1].argsort()[::-1]]
+rls5=rls5[rls5[:,1].argsort()[::-1]]
 
 # top 5 latent semantics in descending order:
 print rls1
@@ -159,10 +159,75 @@ kmeansTag = KMeans(n_clusters=5).fit(P.U[0])
 kmeansMovie = KMeans(n_clusters=5).fit(P.U[1])
 kmeansRating = KMeans(n_clusters=5).fit(P.U[2])
 
-print "Tag Labels: ", kmeansTag.labels_
-print "Movie Labels: ", kmeansMovie.labels_
-print "Ratings Labels: ", kmeansRating.labels_
+print "Labels: "
+tagLabel0=[]
+tagLabel1=[]
+tagLabel2=[]
+tagLabel3=[]
+tagLabel4=[]
 
-print kmeansTag.cluster_centers_
-print kmeansRating.cluster_centers_
-print kmeansMovie.cluster_centers_
+for i in range(0,309):
+    if(kmeansTag.labels_[i]==0)
+        tagLabel0+=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansTag.labels_[i]==1)
+        tagLabel1+=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansTag.labels_[i]==2)
+        tagLabel2+=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansTag.labels_[i]==3)
+        tagLabel3+=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansTag.labels_[i]==4)
+        tagLabel4+=str(setOfAllActors[i]).translate(None,'(),\'L')
+
+print "group 0:\n", tagLabel0
+print "group 1:\n", tagLabel1
+print "group 2:\n", tagLabel2
+print "group 3:\n", tagLabel3
+print "group 4:\n", tagLabel4
+
+movieLabel0=[]
+movieLabel1=[]
+movieLabel2=[]
+movieLabel3=[]
+movieLabel4=[]
+
+for i in range(0,86):
+    if(kmeansMovie.labels_[i]==0)
+        movieLabel0+=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==1)
+        movieLabel1+=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==2)
+        movieLabel2+=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==3)
+        movieLabel3+=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==4)
+        movieLabel4+=str(setOfAllMovies[i]).translate(None,'(),\'L')
+
+print "group 0:\n", movieLabel0
+print "group 1:\n", movieLabel1
+print "group 2:\n", movieLabel2
+print "group 3:\n", movieLabel3
+print "group 4:\n", movieLabel4
+
+ratingLabel0=[]
+ratingLabel1=[]
+ratingLabel2=[]
+ratingLabel3=[]
+ratingLabel4=[]
+
+for i in range(0,9):
+    if(kmeansRating.labels_[i]==0)
+        ratingLabel0+=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansRating.labels_[i]==1)
+        ratingLabel1+=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansRating.labels_[i]==2)
+        ratingLabel2+=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansRating.labels_[i]==3)
+        ratingLabel3+=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansRating.labels_[i]==4)
+        ratingLabel4+=str(setOfAllYears[i]).translate(None,'(),\'L')
+
+print "group 0:\n", ratingLabel0
+print "group 1:\n", ratingLabel1
+print "group 2:\n", ratingLabel2
+print "group 3:\n", ratingLabel3
+print "group 4:\n", ratingLabel4

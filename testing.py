@@ -19,6 +19,7 @@ try:
     # get the db cursor object to interact with db
     cur = conn.cursor()
     cur.execute(("SELECT distinct (actorId) FROM movieActor"))
+    setOfAllActors=cursor.fetchall()
     for row in cur.fetchall():
         row_ele=row[0]
         no_actors_set.append(row_ele)
@@ -72,16 +73,28 @@ for i in range(0,309):
     ls2[i][0]=actorId
     ls3[i][0]=actorId
 
-ls1[ls1[:,1].argsort()[::-1]]
-ls2[ls2[:,1].argsort()[::-1]]
-ls3[ls3[:,1].argsort()[::-1]]
+ls1=ls1[ls1[:,1].argsort()[::-1]]
+ls2=ls2[ls2[:,1].argsort()[::-1]]
+ls3=ls3[ls3[:,1].argsort()[::-1]]
 
 print ls1
 print ls2
 print ls3
 
-kmeans = KMeans(n_clusters=5).fit(U)
-print "Labels: ", kmeans.labels_
+kmeans = KMeans(n_clusters=3).fit(U[:,0:3])
+print "Labels: "
+label0=[]
+label1=[]
+label2=[]
 
+for i in range(0,309):
+  if(kmeans.labels_[i]==0)
+    label0+=str(actorid[i]).translate(None,'(),\'L')
+  if(kmeans.labels_[i]==1)
+    label1+=str(actorid[i]).translate(None,'(),\'L')
+  if(kmeans.labels_[i]==2)
+  	label2+=str(actorid[i]).translate(None,'(),\'L')
 
-print kmeans.cluster_centers_
+print "group 0:\n", label0
+print "group 1:\n", label1
+print "group 2:\n", label2

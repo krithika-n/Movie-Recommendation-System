@@ -127,41 +127,119 @@ for i in range(0,9):
     yls5[i][0]=yearId
 
 #sorting the matrices in descending order
-als1[als1[:,1].argsort()[::-1]]
-als2[als2[:,1].argsort()[::-1]]
-als3[als3[:,1].argsort()[::-1]]
-als4[als4[:,1].argsort()[::-1]]
-als5[als5[:,1].argsort()[::-1]]
+als1=als1[als1[:,1].argsort()[::-1]]
+als2=als2[als2[:,1].argsort()[::-1]]
+als3=als3[als3[:,1].argsort()[::-1]]
+als4=als4[als4[:,1].argsort()[::-1]]
+als5=als5[als5[:,1].argsort()[::-1]]
 
-mls1[mls1[:,1].argsort()[::-1]]
-mls2[mls2[:,1].argsort()[::-1]]
-mls3[mls3[:,1].argsort()[::-1]]
-mls4[mls4[:,1].argsort()[::-1]]
-mls5[mls5[:,1].argsort()[::-1]]
+mls1=mls1[mls1[:,1].argsort()[::-1]]
+mls1=mls2[mls2[:,1].argsort()[::-1]]
+mls1=mls3[mls3[:,1].argsort()[::-1]]
+mls1=mls4[mls4[:,1].argsort()[::-1]]
+mls1=mls5[mls5[:,1].argsort()[::-1]]
 
-yls1[yls1[:,1].argsort()[::-1]]
-yls2[yls2[:,1].argsort()[::-1]]
-yls3[yls3[:,1].argsort()[::-1]]
-yls4[yls4[:,1].argsort()[::-1]]
-yls5[yls5[:,1].argsort()[::-1]]
+yls1=yls1[yls1[:,1].argsort()[::-1]]
+yls1=yls2[yls2[:,1].argsort()[::-1]]
+yls1=yls3[yls3[:,1].argsort()[::-1]]
+yls1=yls4[yls4[:,1].argsort()[::-1]]
+yls1=yls5[yls5[:,1].argsort()[::-1]]
 
 # top 5 latent semantics in descending order:
+print "Latent Semantic for Year\n"
 print yls1
 print yls2
 print yls3
 print yls4
 print yls5
 
+print "Latent Semantic for Movie\n"
+print mls1
+print mls2
+print mls3
+print mls4
+print mls5
 
+print "Latent Semantic for Actor\n"
+print als1
+print als2
+print als3
+print als4
+print als5
 
 kmeansActor = KMeans(n_clusters=5).fit(P.U[0])
 kmeansMovie = KMeans(n_clusters=5).fit(P.U[1])
 kmeansYear = KMeans(n_clusters=5).fit(P.U[2])
 
-print "Actor Labels: ", kmeansActor.labels_
-print "Movie Labels: ", kmeansMovie.labels_
-print "Year Labels: ", kmeansYear.labels_
+print "Labels: "
+actorLabel0=[]
+actorLabel1=[]
+actorLabel2=[]
+actorLabel3=[]
+actorLabel4=[]
 
-print kmeansActor.cluster_centers_
-print kmeansYear.cluster_centers_
-print kmeansMovie.cluster_centers_
+for i in range(0,309):
+    if(kmeansActor.labels_[i]==0)
+        actorLabel0+=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansActor.labels_[i]==1)
+        actorLabel1+=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansActor.labels_[i]==2)
+        actorLabel2+=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansActor.labels_[i]==3)
+        actorLabel3+=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansActor.labels_[i]==4)
+        actorLabel4+=str(setOfAllActors[i]).translate(None,'(),\'L')
+
+print "group 0:\n", actorLabel0
+print "group 1:\n", actorLabel1
+print "group 2:\n", actorLabel2
+print "group 3:\n", actorLabel3
+print "group 4:\n", actorLabel4
+
+movieLabel0=[]
+movieLabel1=[]
+movieLabel2=[]
+movieLabel3=[]
+movieLabel4=[]
+
+for i in range(0,86):
+    if(kmeansMovie.labels_[i]==0)
+        movieLabel0+=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==1)
+        movieLabel1+=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==2)
+        movieLabel2+=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==3)
+        movieLabel3+=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==4)
+        movieLabel4+=str(setOfAllMovies[i]).translate(None,'(),\'L')
+
+print "group 0:\n", movieLabel0
+print "group 1:\n", movieLabel1
+print "group 2:\n", movieLabel2
+print "group 3:\n", movieLabel3
+print "group 4:\n", movieLabel4
+
+yearLabel0=[]
+yearLabel1=[]
+yearLabel2=[]
+yearLabel3=[]
+yearLabel4=[]
+
+for i in range(0,9):
+    if(kmeansYear.labels_[i]==0)
+        yearLabel0+=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansYear.labels_[i]==1)
+        yearLabel1+=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansYear.labels_[i]==2)
+        yearLabel2+=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansYear.labels_[i]==3)
+        yearLabel3+=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansYear.labels_[i]==4)
+        yearLabel4+=str(setOfAllYears[i]).translate(None,'(),\'L')
+
+print "group 0:\n", yearLabel0
+print "group 1:\n", yearLabel1
+print "group 2:\n", yearLabel2
+print "group 3:\n", yearLabel3
+print "group 4:\n", yearLabel4

@@ -1,7 +1,3 @@
-## this is task 2b
-
-
-
 import MySQLdb
 from sklearn.cluster import KMeans
 import numpy 
@@ -22,8 +18,6 @@ q='select distinct actorId from imdbActorInfo'
 size=cursor.execute(q);
 actorid=cursor.fetchall();
 
-
-
 CoactorMatrix=numpy.zeros((size, size))
 #Creating a Coactor Coactor Matrix
 for i,actorid_i in enumerate(actorid):
@@ -40,9 +34,7 @@ for i,actorid_i in enumerate(actorid):
 
 #SVD from numpy
 U, s, V = numpy.linalg.svd(CoactorMatrix, full_matrices=False)
-sizeU=U.shape
-latentSemantics=numpy.zeros((size,ls))
-
+'''
 print U[:,0:3].shape
 
 ls1=numpy.zeros((309,2))
@@ -55,22 +47,36 @@ ls3[:,1]=U[:,2]
 
 for i in range(0,309):
     actorId=float(str(actorid[i]).translate(None,'(),\'L'))
+    #print actorId
     #print len(actorId[0])
     ls1[i][0]=actorId
+    #print ls1[i][0]
     ls2[i][0]=actorId
     ls3[i][0]=actorId
 
-ls1[ls1[:,1].argsort()[::-1]]
-ls2[ls2[:,1].argsort()[::-1]]
-ls3[ls3[:,1].argsort()[::-1]]
+ls1=ls1[ls1[:,1].argsort()[::-1]]
+ls2=ls2[ls2[:,1].argsort()[::-1]]
+ls3=ls3[ls3[:,1].argsort()[::-1]]
 
 print ls1
 print ls2
 print ls3
+'''
+kmeans = KMeans(n_clusters=3).fit(U[:,0:3])
 
-kmeans = KMeans(n_clusters=5).fit(U)
-print "Labels: ", kmeans.labels_
+print "Labels: "
+label0=[]
+label1=[]
+label2=[]
 
-
-print kmeans.cluster_centers_
-
+for i in range(0,309):
+  if(kmeans.labels_[i]==0)
+    label0+=str(actorid[i]).translate(None,'(),\'L')
+  if(kmeans.labels_[i]==1)
+    label1+=str(actorid[i]).translate(None,'(),\'L')
+  if(kmeans.labels_[i]==2)
+    label2+=str(actorid[i]).translate(None,'(),\'L')
+    
+print "group 0:\n", label0
+print "group 1:\n", label1
+print "group 2:\n", label2
