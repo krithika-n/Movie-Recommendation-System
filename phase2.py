@@ -1,4 +1,4 @@
-import tasks
+
 import loadDatabase
 import numpy
 import lda
