@@ -1,0 +1,89 @@
+TF-IDF Tag vectors:
+
+Input:
+python Task1d.py 5078 1
+
+Output:
+The top 10 most related actors to the movie with movieid = 5078 and movie name: 'Full Frontal' who have not acted in the movie are: 
+ActorID ActorName
+724992 'Flanagan, Tommy'
+1739265 'Papenbrook, Bob'
+1817602 'Pollak, Kevin'
+2681348 'Bliss, Lucille'
+3301462 'Long, Nia'
+2672983 'Bilson, Rachel'
+458558 'Cooper, Chris'
+3890203 'Warren, Estella'
+3121684 'Hunter, Holly'
+2340377 'Underwood, Blair'
+565786 'Depp, Johnny'
+
+SVD in Space of Tag vectors:
+
+Input:
+python Task1d.py 5078 2 1
+
+Output:
+The top 10 most related actors to the movie with movieid = 5078 and movie name: 'Full Frontal' who have not acted in the movie are: 
+ActorID ActorName
+3747431 'Spearritt, Hannah'
+283459 'Brooks, Avery'
+3762843 'Stevenson, Cynthia'
+542238 'De Niro, Robert'
+2520743 'Yoakam, Dwight'
+861346 'Grammer, Kelsey'
+1483828 'McDermott, Dylan'
+1606367 'Muniz, Frankie'
+1253701 'Kutcher, Ashton'
+313166 'Burns, Edward'
+2454190 'Whitaker, Forest'
+
+PCA in space of tag vectors:
+
+Input:
+python Task1d.py 5078 2 2
+
+Output:
+The top 10 most related actors to the movie with movieid = 5078 and movie name: 'Full Frontal' who have not acted in the movie are: 
+ActorID ActorName
+3650577 'Ryan, Meg'
+630676 'Dutton, Charles S.'
+2082212 'Shalhoub, Tony'
+665574 'Epps, Omar'
+2963551 'Foster, Jodie'
+2520743 'Yoakam, Dwight'
+3763705 'Stewart, Kristen'
+2454190 'Whitaker, Forest'
+3464199 'Neri, Francesca'
+1229838 'Koteas, Elias'
+2055016 'Schwarzenegger, Arnold'
+
+LDA in space of tag vectors:
+
+Input:
+python Task1d.py 5078 2 3
+
+Output:
+INFO:lda:n_documents: 79
+INFO:lda:vocab_size: 86
+INFO:lda:n_words: 132
+INFO:lda:n_topics: 5
+INFO:lda:n_iter: 10
+WARNING:lda:all zero column in document-term matrix found
+INFO:lda:<0> log likelihood: -912
+INFO:lda:<9> log likelihood: -442
+The top 10 most related actors to the movie with movieid = 5078 and movie name: 'Full Frontal' who have not acted in the movie are: 
+ActorID ActorName
+3650577 'Ryan, Meg'
+2613454 'Atkins, Eileen'
+719241 'Firth, Colin'
+2731923 'Bynes, Amanda'
+630676 'Dutton, Charles S.'
+2082212 'Shalhoub, Tony'
+3568607 'Preston, Kelly'
+665574 'Epps, Omar'
+692749 'Farrell, Colin'
+17838 'Affleck, Ben'
+623809 'Duncan, Michael Clarke'
+
+

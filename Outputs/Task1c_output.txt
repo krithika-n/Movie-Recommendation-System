@@ -1,0 +1,88 @@
+TF-IDF Tag vectors:
+
+Input:
+python Task1c.py 3558986 1
+
+Output:
+The top 10 related actors to the actor whose actor ID is: 3558986 and name: Polley, Sarah
+ActorID ActorName
+1907368 'Rhames, Ving'
+2436599 'Weber, Jake'
+1792455 'Phifer, Mekhi'
+724992 'Flanagan, Tommy'
+1739265 'Papenbrook, Bob'
+1817602 'Pollak, Kevin'
+2681348 'Bliss, Lucille'
+3301462 'Long, Nia'
+2672983 'Bilson, Rachel'
+458558 'Cooper, Chris'
+3890203 'Warren, Estella'
+
+SVD in Space of Tag vectors:
+
+Input:
+python Task1c.py 3558986 2 1
+
+Output:
+The top 10 related actors to the actor whose actor ID is: 3558986 and name: Polley, Sarah
+ActorID ActorName
+692749 'Farrell, Colin'
+17838 'Affleck, Ben'
+396877 'Cheadle, Don'
+128645 'Baldwin, Alec'
+623809 'Duncan, Michael Clarke'
+1907368 'Rhames, Ving'
+1069742 'Jackman, Hugh'
+2312401 'Travolta, John'
+2436599 'Weber, Jake'
+2665816 'Berry, Halle'
+3900269 'Wen, Ming-Na'
+
+PCA in space of tag vectors:
+
+Input:
+python Task1c.py 3558986 2 2
+
+Output:
+The top 10 related actors to the actor whose actor ID is: 3558986 and name: Polley, Sarah
+ActorID ActorName
+2436599 'Weber, Jake'
+1792455 'Phifer, Mekhi'
+1907368 'Rhames, Ving'
+68671 'Andrieu, Sebastien'
+3900269 'Wen, Ming-Na'
+316365 'Buscemi, Steve'
+128645 'Baldwin, Alec'
+45899 'Allen, Tim'
+99457 'Astin, Sean'
+263611 'Bradshaw, Terry'
+133985 'Banderas, Antonio'
+
+LDA in space of tag vectors:
+
+Input:
+python Task1c.py 3558986 2 3
+
+Output:
+INFO:lda:n_documents: 79
+INFO:lda:vocab_size: 309
+INFO:lda:n_words: 453
+INFO:lda:n_topics: 5
+INFO:lda:n_iter: 10
+WARNING:lda:all zero column in document-term matrix found
+INFO:lda:<0> log likelihood: -3750
+INFO:lda:<9> log likelihood: -1821
+
+The top 10 related actors to the actor whose actor ID is: 3558986 and name: Polley, Sarah
+ActorID ActorName
+724992 'Flanagan, Tommy'
+1739265 'Papenbrook, Bob'
+1817602 'Pollak, Kevin'
+2681348 'Bliss, Lucille'
+3464199 'Neri, Francesca'
+2672983 'Bilson, Rachel'
+1229838 'Koteas, Elias'
+458558 'Cooper, Chris'
+3890203 'Warren, Estella'
+3650577 'Ryan, Meg'
+1405458 'Mainwaring, Cameron'
