@@ -35,15 +35,13 @@ def task1_a(genre,model):
                 x=numpy.cov(x)#covariance of x
             U, s, V = numpy.linalg.svd(x, full_matrices=False)
             #latent_semantics=U[:,0:3]
-            transpose=numpy.matrix.transpose(V)
+            #transpose=numpy.matrix.transpose(V)
             latent_semantics = V[0:3, :]
-            print V[0:3,:]
-            transpose=latent_semantics
-            for (key,topic) in enumerate(transpose):
+            for (key,topic) in enumerate(latent_semantics):
                 string='topic'+str(key)+'='
-                sorted_tags=numpy.argsort(transpose[key])[::-1]
+                sorted_tags=numpy.argsort(latent_semantics[key])[::-1]
                 for tag in sorted_tags:
-                    string+=tag_tagnames[tags[tag][0]]+'*'+str(transpose[key][tag])
+                    string+=tag_tagnames[tags[tag][0]]+'*'+str(latent_semantics[key][tag])
                 print string
                 print '--------------'
         if model=='2':
@@ -80,17 +78,17 @@ def task1_b(genre,model):
                 movieList.append((float((queryexecutioner.queryActioner(con, 'select count(*) from movie_actor where actorid ='+str(actor[0])+' and movieid='+str(movie[0])))[0][0])/noOfActors)*idf)
             finalarray.append(movieList)
         x=numpy.array(finalarray)
-        x=numpy.matrix.transpose(x)
+        #x=numpy.matrix.transpose(x)
         if model=='1':
             x=numpy.cov(x)
         U, s, V = numpy.linalg.svd(x, full_matrices=False)
-        latent_semantics=U[:,0:3]
-        transpose=numpy.matrix.transpose(latent_semantics)
-        for (key,topic) in enumerate(transpose):
+        latent_semantics=V[0:3,:]
+        #transpose=numpy.matrix.transpose(latent_semantics)
+        for (key,topic) in enumerate(latent_semantics):
             string='topic'+str(key)+'='
-            sorted_actors=numpy.argsort(transpose[key])[::-1]
+            sorted_actors=numpy.argsort(latent_semantics[key])[::-1]
             for actor in sorted_actors:
-                string+=actor_actornames[actors[actor][0]]+'*'+str(transpose[key][actor])
+                string+=actor_actornames[actors[actor][0]]+'*'+str(latent_semantics[key][actor])
             print string
             print '--------------'
     if model=='2':
