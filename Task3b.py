@@ -109,7 +109,7 @@ try:
         sortdict[k] = val[0]
         k = k + 1
 
-    #sort the dictionary nd print the top 10 ppr values
+    #sort the dictionary and print the actorid for the top 10 ppr values
     k = 0
     print("Top ten related actors to the seed set are:\n")
     for i in reversed(range(no_actors)):
