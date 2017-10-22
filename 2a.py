@@ -1,3 +1,7 @@
+## this is task 2b
+
+
+
 import MySQLdb
 from sklearn.cluster import KMeans
 import numpy 
