@@ -34,14 +34,14 @@ def get_actor_tag ():
 			conn.rollback()
 		#try:
 		#Get all movies for this actor
-		movs=cur.execute("select movieid from movie_actor where actorid=%s;",(actid))
+		movs=cur.execute("select movieid from movie_actor where actorid=%s;",(actid[0],))
 		mov=cur.fetchall()
 		conn.commit()
 		if movs==0:
 			continue;
 		for m in mov:
 			#Get all tags per movie
-			notagserr=cur.execute("select tagid from mltags where movieid=%s",(m[0]))
+			notagserr=cur.execute("select tagid from mltags where movieid=%s",(m[0],))
 			tags=cur.fetchall()
 			conn.commit()
 			tf_normal={}	
@@ -66,7 +66,7 @@ def get_actor_tag ():
 						norm_tim_sum+=norm_tim
 					timestamps[t[0]]=norm_tim_sum
 					#Get number of actors having this tag in Database
-					cur.execute("select count(distinct actorid) from movie_actor,mltags where movie_actor.movieid=mltags.movieid and tagid=%s",t[0])
+					cur.execute("select count(distinct actorid) from movie_actor,mltags where movie_actor.movieid=mltags.movieid and tagid=%s",(t[0],))
 					actors_with_this_tag[t[0]]=int(cur.fetchone()[0])
 					conn.commit()
 			#Get actor movie rank
@@ -75,7 +75,7 @@ def get_actor_tag ():
 			actor_rank=a_rank[0][0]
 			conn.commit()
 			#Get number of tags in this movie
-			cur.execute("select count(tagid) from mltags where movieid=%s",(m[0]))
+			cur.execute("select count(tagid) from mltags where movieid=%s",(m[0],))
 			no_of_tags=cur.fetchall()[0][0]
 			#Use formula to calculate Time-Weighted TF
 			for tag_in_movie, tag_count in tf_normal.iteritems():
