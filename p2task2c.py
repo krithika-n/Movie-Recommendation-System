@@ -51,11 +51,11 @@ for actor in setOfAllActors:
 ## perform CP decomposition on the 3D array
 T = dtensor(amyTensor)
 P, fit, itr, exectimes = cp_als(T, 5,max_iter=10000, init='random')
-
+'''
 print P.U[0].shape
 print P.U[1].shape
 print P.U[2].shape
-
+'''
 #print P.lmbda
 
 #Latent semantic in terms of actor

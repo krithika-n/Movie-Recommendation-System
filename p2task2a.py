@@ -13,7 +13,7 @@ try:
     # connect to the database
     conn = MySQLdb.connect(host='127.0.0.1',
         user='root',
-        passwd='haha123',
+        passwd='bavani',
         db='mwdb')
     # get the db cursor object to interact with db
     cur = conn.cursor()
@@ -55,7 +55,7 @@ U, s, V = np.linalg.svd(my_array2, full_matrices=False)
 sizeU=U.shape
 latentSemantics=np.zeros((no_actors,ls))
 
-print U[:,0:3]
+#print U[:,0:3]
 
 ls1=np.zeros((numberofactors,2))
 ls2=np.zeros((numberofactors,2))
@@ -76,9 +76,9 @@ ls1=ls1[ls1[:,1].argsort()[::-1]]
 ls2=ls2[ls2[:,1].argsort()[::-1]]
 ls3=ls3[ls3[:,1].argsort()[::-1]]
 
-print ls1
-print ls2
-print ls3
+print "Latent Semantic 1:\n",ls1
+print "Latent Semantic 2:\n",ls2
+print "Latent Semantic 3:\n",ls3
 
 kmeans = KMeans(n_clusters=3).fit(U[:,0:3])
 print "Labels: "

@@ -54,10 +54,6 @@ for tag in setOfAllTags:
 T = dtensor(tmrTensor)
 P, fit, itr, exectimes = cp_als(T, 5,max_iter=10000, init='random')
 
-print P.U[0].shape
-print P.U[1].shape
-print P.U[2].shape
-
 #print P.lmbda
 #Latent semantic in terms of actor
 tls1=np.zeros((countOfTags,2))
@@ -146,13 +142,26 @@ rls3=rls3[rls3[:,1].argsort()[::-1]]
 rls4=rls4[rls4[:,1].argsort()[::-1]]
 rls5=rls5[rls5[:,1].argsort()[::-1]]
 
-# top 5 latent semantics in descending order:
+print "Latent Semantic for Tag\n"
+print tls1
+print tls2
+print tls3
+print tls4
+print tls5
+
+print "Latent Semantic for Movie\n"
+print mls1
+print mls2
+print mls3
+print mls4
+print mls5
+
+print "Latent Semantic for Rating\n"
 print rls1
 print rls2
 print rls3
 print rls4
 print rls5
-
 
 
 kmeansTag = KMeans(n_clusters=5).fit(P.U[0])

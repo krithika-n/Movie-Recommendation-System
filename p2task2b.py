@@ -35,7 +35,7 @@ for i,actorid_i in enumerate(actorid):
 #SVD from numpy
 U, s, V = numpy.linalg.svd(CoactorMatrix, full_matrices=False)
 
-print U[:,0:3].shape
+#print U[:,0:3].shape
 
 ls1=numpy.zeros((size,2))
 ls2=numpy.zeros((size,2))
@@ -58,9 +58,9 @@ ls1=ls1[ls1[:,1].argsort()[::-1]]
 ls2=ls2[ls2[:,1].argsort()[::-1]]
 ls3=ls3[ls3[:,1].argsort()[::-1]]
 
-print ls1
-print ls2
-print ls3
+print "Latent Semantic 1:\n",ls1
+print "Latent Semantic 2:\n",ls2
+print "Latent Semantic 3:\n",ls3
 
 kmeans = KMeans(n_clusters=3).fit(U[:,0:3])
 
