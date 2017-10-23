@@ -16,7 +16,7 @@ index_to_actor={}
 try:
     # connect to the database
     conn = mysql.connector.connect(user='root',
-                                   password='myfirstdb94/',
+                                   password='haha123',
                                    host='localhost',
                                    database='mwdb')
 
@@ -25,13 +25,13 @@ try:
     cur = conn.cursor()
 
     #map actorid to actor name
-    cur.execute(("SELECT id,name FROM mwdb.imdb_actor_info;"))
+    cur.execute(("SELECT id,name FROM mwdb.imdb_actor_info2;"))
     for row in cur.fetchall():
         id=row[0]
         name=row[1]
         actor_name[id]=name;
     #get the number of actors
-    cur.execute(("SELECT distinct (actorid) FROM mwdb.movie_actor;"))
+    cur.execute(("SELECT distinct (actorid) FROM mwdb.movie_actor2;"))
     for row in cur.fetchall():
         row_ele=row[0]
         no_actors_set.append(row_ele)
@@ -48,7 +48,7 @@ try:
             if(actorB==actorA):
                 entry=0.0
             else:
-                cur.execute(("SELECT movieid FROM mwdb.movie_actor where actorid={} and movieid in (select movieid from movie_actor where actorid={})".format(actorA,actorB)))
+                cur.execute(("SELECT movieid FROM mwdb.movie_actor2 where actorid={} and movieid in (select movieid from movie_actor2 where actorid={})".format(actorA,actorB)))
                 res=cur.fetchall()
                 entry=len(res)
             one_row_in_array.append(entry)
@@ -83,22 +83,14 @@ try:
     mean_error = 1
     alpha = 0.85
     no_iter = 0
-    prevscore = np.zeros((no_actors, 1))          #Matrix to compute mean error between successive pagerank scores
-    prevscore = prscore
-
-    while (mean_error > 0.00000005):
+    
+    while (no_iter<100):
         #calculate pagerank with rwr approach
         term1 = alpha * np.matmul(my_array, prscore)
         term2 = (1 - alpha) * teleport
         prscore = term1 + term2
-        #calculate error between previous and current pagerank values
-        diff = abs(prscore - prevscore)
-        mean_error = np.mean(diff)
         #set current pagerank scores as prevscore values
-        prevscore = prscore
         no_iter = no_iter + 1
-
-    print("\nNumber of iterations -",no_iter)
 
     #sort the pagerank scores and store the rank of the sorted values in sortlist
     sortlist = np.argsort(prscore, axis=0)
