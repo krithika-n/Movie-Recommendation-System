@@ -160,74 +160,74 @@ kmeansMovie = KMeans(n_clusters=5).fit(P.U[1])
 kmeansRating = KMeans(n_clusters=5).fit(P.U[2])
 
 print "Labels: "
-tagLabel0=[]
-tagLabel1=[]
-tagLabel2=[]
-tagLabel3=[]
-tagLabel4=[]
+tagLabel0={}
+tagLabel1={}
+tagLabel2={}
+tagLabel3={}
+tagLabel4={}
 
 for i in range(0,309):
-    if(kmeansTag.labels_[i]==0)
-        tagLabel0+=str(setOfAllActors[i]).translate(None,'(),\'L')
-    if(kmeansTag.labels_[i]==1)
-        tagLabel1+=str(setOfAllActors[i]).translate(None,'(),\'L')
-    if(kmeansTag.labels_[i]==2)
-        tagLabel2+=str(setOfAllActors[i]).translate(None,'(),\'L')
-    if(kmeansTag.labels_[i]==3)
-        tagLabel3+=str(setOfAllActors[i]).translate(None,'(),\'L')
-    if(kmeansTag.labels_[i]==4)
-        tagLabel4+=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansTag.labels_[i]==0):
+        tagLabel0[1]=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansTag.labels_[i]==1):
+        tagLabel1[1]=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansTag.labels_[i]==2):
+        tagLabel2[1]=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansTag.labels_[i]==3):
+        tagLabel3[1]=str(setOfAllActors[i]).translate(None,'(),\'L')
+    if(kmeansTag.labels_[i]==4):
+        tagLabel4[1]=str(setOfAllActors[i]).translate(None,'(),\'L')
 
-print "group 0:\n", tagLabel0
-print "group 1:\n", tagLabel1
-print "group 2:\n", tagLabel2
-print "group 3:\n", tagLabel3
-print "group 4:\n", tagLabel4
+print "group 0:\n", tagLabel0.get(1)
+print "group 1:\n", tagLabel1.get(1)
+print "group 2:\n", tagLabel2.get(1)
+print "group 3:\n", tagLabel3.get(1)
+print "group 4:\n", tagLabel4.get(1)
 
-movieLabel0=[]
-movieLabel1=[]
-movieLabel2=[]
-movieLabel3=[]
-movieLabel4=[]
+movieLabel0={}
+movieLabel1={}
+movieLabel2={}
+movieLabel3={}
+movieLabel4={}
 
 for i in range(0,86):
-    if(kmeansMovie.labels_[i]==0)
-        movieLabel0+=str(setOfAllMovies[i]).translate(None,'(),\'L')
-    if(kmeansMovie.labels_[i]==1)
-        movieLabel1+=str(setOfAllMovies[i]).translate(None,'(),\'L')
-    if(kmeansMovie.labels_[i]==2)
-        movieLabel2+=str(setOfAllMovies[i]).translate(None,'(),\'L')
-    if(kmeansMovie.labels_[i]==3)
-        movieLabel3+=str(setOfAllMovies[i]).translate(None,'(),\'L')
-    if(kmeansMovie.labels_[i]==4)
-        movieLabel4+=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==0):
+        movieLabel0[1]=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==1):
+        movieLabel1[1]=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==2):
+        movieLabel2[1]=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==3):
+        movieLabel3[1]=str(setOfAllMovies[i]).translate(None,'(),\'L')
+    if(kmeansMovie.labels_[i]==4):
+        movieLabel4[1]=str(setOfAllMovies[i]).translate(None,'(),\'L')
 
-print "group 0:\n", movieLabel0
-print "group 1:\n", movieLabel1
-print "group 2:\n", movieLabel2
-print "group 3:\n", movieLabel3
-print "group 4:\n", movieLabel4
+print "group 0:\n", movieLabel0.get(1)
+print "group 1:\n", movieLabel1.get(1)
+print "group 2:\n", movieLabel2.get(1)
+print "group 3:\n", movieLabel3.get(1)
+print "group 4:\n", movieLabel4.get(1)
 
-ratingLabel0=[]
-ratingLabel1=[]
-ratingLabel2=[]
-ratingLabel3=[]
-ratingLabel4=[]
+ratingLabel0={}
+ratingLabel1={}
+ratingLabel2={}
+ratingLabel3={}
+ratingLabel4={}
 
 for i in range(0,9):
-    if(kmeansRating.labels_[i]==0)
-        ratingLabel0+=str(setOfAllYears[i]).translate(None,'(),\'L')
-    if(kmeansRating.labels_[i]==1)
-        ratingLabel1+=str(setOfAllYears[i]).translate(None,'(),\'L')
-    if(kmeansRating.labels_[i]==2)
-        ratingLabel2+=str(setOfAllYears[i]).translate(None,'(),\'L')
-    if(kmeansRating.labels_[i]==3)
-        ratingLabel3+=str(setOfAllYears[i]).translate(None,'(),\'L')
-    if(kmeansRating.labels_[i]==4)
-        ratingLabel4+=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansRating.labels_[i]==0):
+        ratingLabel0[1]=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansRating.labels_[i]==1):
+        ratingLabel1[1]=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansRating.labels_[i]==2):
+        ratingLabel2[1]=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansRating.labels_[i]==3):
+        ratingLabel3[1]=str(setOfAllYears[i]).translate(None,'(),\'L')
+    if(kmeansRating.labels_[i]==4):
+        ratingLabel4[1]=str(setOfAllYears[i]).translate(None,'(),\'L')
 
-print "group 0:\n", ratingLabel0
-print "group 1:\n", ratingLabel1
-print "group 2:\n", ratingLabel2
-print "group 3:\n", ratingLabel3
-print "group 4:\n", ratingLabel4
+print "group 0:\n", ratingLabel0.get(1)
+print "group 1:\n", ratingLabel1.get(1)
+print "group 2:\n", ratingLabel2.get(1)
+print "group 3:\n", ratingLabel3.get(1)
+print "group 4:\n", ratingLabel4.get(1)

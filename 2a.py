@@ -34,7 +34,7 @@ for i,actorid_i in enumerate(actorid):
 
 #SVD from numpy
 U, s, V = numpy.linalg.svd(CoactorMatrix, full_matrices=False)
-'''
+
 print U[:,0:3].shape
 
 ls1=numpy.zeros((309,2))
@@ -61,22 +61,23 @@ ls3=ls3[ls3[:,1].argsort()[::-1]]
 print ls1
 print ls2
 print ls3
-'''
+
 kmeans = KMeans(n_clusters=3).fit(U[:,0:3])
 
 print "Labels: "
-label0=[]
-label1=[]
-label2=[]
+label0={}
+label1={}
+label2={}
 
 for i in range(0,309):
-  if(kmeans.labels_[i]==0)
-    label0+=str(actorid[i]).translate(None,'(),\'L')
-  if(kmeans.labels_[i]==1)
-    label1+=str(actorid[i]).translate(None,'(),\'L')
-  if(kmeans.labels_[i]==2)
-    label2+=str(actorid[i]).translate(None,'(),\'L')
+  if(kmeans.labels_[i]==0):
+    label0[1]=str(actorid[i]).translate(None,'(),\'L')
+    #print str(actorid[i]).translate(None,'(),\'L')
+  if(kmeans.labels_[i]==1):
+    label1[1]=str(actorid[i]).translate(None,'(),\'L')
+  if(kmeans.labels_[i]==2):
+    label2[1]=str(actorid[i]).translate(None,'(),\'L')
     
-print "group 0:\n", label0
-print "group 1:\n", label1
-print "group 2:\n", label2
+print "group 0:\n", label0.get(1)
+print "group 1:\n", label1.get(1)
+print "group 2:\n", label2.get(1)
