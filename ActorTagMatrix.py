@@ -34,7 +34,7 @@ def get_actor_tag ():
 			conn.rollback()
 		#try:
 		#Get all movies for this actor
-		movs=cur.execute("select movieid from movie_actor where actorid=%s;",(actid,))
+		movs=cur.execute("select movieid from movie_actor where actorid=%s;",(actid[0],))
 		mov=cur.fetchall()
 		conn.commit()
 		if movs==0:

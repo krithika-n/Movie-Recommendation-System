@@ -11,7 +11,7 @@ import ActorTagMatrix as acttag
 import lda
 import lda.datasets
 
-def task1d(movieid,outermode):
+def task1d(movieid,outermode,innermode):
 	conn = MySQLdb.connect(user='root', passwd='haha123', host='127.0.0.1', db="mwdb")
 	cur=conn.cursor()
 	#Get movie-tag mapping and actor-tag mapping.
@@ -52,8 +52,6 @@ def task1d(movieid,outermode):
 		for tag, scores in movie_tag.T.iteritems():
 			tag_dict[tag]=i
 			i=i+1
-		#Get which method to use
-		innermode=int(sys.argv[3])
 		#Do SVD
 		if innermode == 1:
 			[u,s,v]=np.linalg.svd(movie_tag.T, full_matrices=0)

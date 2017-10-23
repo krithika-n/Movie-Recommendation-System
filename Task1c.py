@@ -9,7 +9,7 @@ import scipy
 import ActorTagMatrix as acttag
 import lda
 
-def task1c(actorid,outermode):
+def task1c(actorid,outermode, innermode):
 	conn = MySQLdb.connect(user='root', passwd='haha123', host='127.0.0.1', db="mwdb")
 	cur=conn.cursor()
 	#Fetch the actor tag matrix of TF-IDF scores.
@@ -46,8 +46,6 @@ def task1c(actorid,outermode):
 		for actor, scores in actor_tag.iteritems():
 			actor_dict[actor]=i
 			i=i+1
-		#Get which dimensionality reduction technique to use
-		innermode=int(sys.argv[3])
 		#Do SVD
 		if innermode == 1:
 			[u,s,v]=np.linalg.svd(actor_tag.T, full_matrices=0)
@@ -90,6 +88,7 @@ def task1c(actorid,outermode):
 					dist_from_this_actor[a[0]]=math.fabs(dist)
 		#Do LDA
 		if innermode == 3:
+			print "At LDA"
 			actor_tag={}
 			cur.execute("SELECT distinct actorid from movie_actor")
 			actors=cur.fetchall()
@@ -102,13 +101,13 @@ def task1c(actorid,outermode):
 			#Construct actor-tag count matrix
 			for actid in actors:
 				tf_normal={}
-				movs=cur.execute("select movieid from movie_actor where actorid=%s;",(actid))
+				movs=cur.execute("select movieid from movie_actor where actorid=%s;",(actid[0],))
 				mov=cur.fetchall()
 				conn.commit()
 				if movs==0:
 					continue;
 				for m in mov:
-					notagserr=cur.execute("select tagid from mltags where movieid=%s",(m[0]))
+					notagserr=cur.execute("select tagid from mltags where movieid=%s",(m[0],))
 					tags=cur.fetchall()
 					conn.commit()
 					tf_normal={}
@@ -162,3 +161,5 @@ def task1c(actorid,outermode):
 		results[actor]=res
 		i=i+1
 	print("\n")
+
+#task1c(3558986, 1, 0)
