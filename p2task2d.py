@@ -32,7 +32,7 @@ setOfAllMovies=cursor.fetchall()
 querySetOfRatings="select distinct rating from mlratings"
 countOfRatings=cursor.execute(querySetOfRatings)
 setOfAllRatings=cursor.fetchall()
-#print countOfActors,countOfMovies,countOfYears
+
 tmrTensor=np.zeros((countOfTags,countOfMovies,countOfRatings))
 
 for tag in setOfAllTags:
@@ -60,11 +60,11 @@ print P.U[2].shape
 
 #print P.lmbda
 #Latent semantic in terms of actor
-tls1=np.zeros((79,2))
-tls2=np.zeros((79,2))
-tls3=np.zeros((79,2))
-tls4=np.zeros((79,2))
-tls5=np.zeros((79,2))
+tls1=np.zeros((countOfTags,2))
+tls2=np.zeros((countOfTags,2))
+tls3=np.zeros((countOfTags,2))
+tls4=np.zeros((countOfTags,2))
+tls5=np.zeros((countOfTags,2))
 
 tls1[:,1]=P.U[0][:,0]
 tls2[:,1]=P.U[0][:,1]
@@ -72,7 +72,7 @@ tls3[:,1]=P.U[0][:,2]
 tls4[:,1]=P.U[0][:,3]
 tls5[:,1]=P.U[0][:,4]
 
-for i in range(0,79):
+for i in range(0,countOfTags):
     tagId=float(str(setOfAllTags[i]).translate(None,'(),\'L'))
     #print len(actorId[0])
     tls1[i][0]=tagId
@@ -83,11 +83,11 @@ for i in range(0,79):
     tls5[i][0]=tagId
 
 #latent semantics of movie
-mls1=np.zeros((86,2))
-mls2=np.zeros((86,2))
-mls3=np.zeros((86,2))
-mls4=np.zeros((86,2))
-mls5=np.zeros((86,2))
+mls1=np.zeros((countOfMovies,2))
+mls2=np.zeros((countOfMovies,2))
+mls3=np.zeros((countOfMovies,2))
+mls4=np.zeros((countOfMovies,2))
+mls5=np.zeros((countOfMovies,2))
 
 mls1[:,1]=P.U[1][:,0]
 mls2[:,1]=P.U[1][:,1]
@@ -95,7 +95,7 @@ mls3[:,1]=P.U[1][:,2]
 mls4[:,1]=P.U[1][:,3]
 mls5[:,1]=P.U[1][:,4]
 
-for i in range(0,86):
+for i in range(0,countOfMovies):
     movieId=float(str(setOfAllMovies[i]).translate(None,'(),\'L'))
     mls1[i][0]=movieId
     mls2[i][0]=movieId
@@ -118,7 +118,7 @@ rls3[:,1]=P.U[2][:,2]
 rls4[:,1]=P.U[2][:,3]
 rls5[:,1]=P.U[2][:,4]
 
-for i in range(0,5):
+for i in range(0,countOfRatings):
     rateId=float(str(setOfAllRatings[i]).translate(None,'(),\'L'))
     rls1[i][0]=rateId
     rls2[i][0]=rateId
@@ -166,7 +166,7 @@ tagLabel2={}
 tagLabel3={}
 tagLabel4={}
 
-for i in range(0,79):
+for i in range(0,countOfTags):
     if(kmeansTag.labels_[i]==0):
         tagLabel0[str(setOfAllTags[i]).translate(None,'(),\'L')]=1
     if(kmeansTag.labels_[i]==1):
@@ -205,7 +205,7 @@ movieLabel2={}
 movieLabel3={}
 movieLabel4={}
 
-for i in range(0,86):
+for i in range(0,countOfMovies):
     if(kmeansMovie.labels_[i]==0):
         movieLabel0[str(setOfAllMovies[i]).translate(None,'(),\'L')]=1
     if(kmeansMovie.labels_[i]==1):
@@ -244,7 +244,7 @@ ratingLabel2={}
 ratingLabel3={}
 ratingLabel4={}
 
-for i in range(0,5):
+for i in range(0,countOfRatings):
     if(kmeansRating.labels_[i]==0):
         ratingLabel0[str(setOfAllRatings[i]).translate(None,'(),\'L')]=1
     if(kmeansRating.labels_[i]==1):

@@ -59,11 +59,11 @@ print P.U[2].shape
 #print P.lmbda
 
 #Latent semantic in terms of actor
-als1=np.zeros((309,2))
-als2=np.zeros((309,2))
-als3=np.zeros((309,2))
-als4=np.zeros((309,2))
-als5=np.zeros((309,2))
+als1=np.zeros((countOfActors,2))
+als2=np.zeros((countOfActors,2))
+als3=np.zeros((countOfActors,2))
+als4=np.zeros((countOfActors,2))
+als5=np.zeros((countOfActors,2))
 
 als1[:,1]=P.U[0][:,0]
 als2[:,1]=P.U[0][:,1]
@@ -71,7 +71,7 @@ als3[:,1]=P.U[0][:,2]
 als4[:,1]=P.U[0][:,3]
 als5[:,1]=P.U[0][:,4]
 
-for i in range(0,309):
+for i in range(0,countOfActors):
     actorId=float(str(setOfAllActors[i]).translate(None,'(),\'L'))
     #print len(actorId[0])
     als1[i][0]=actorId
@@ -82,11 +82,11 @@ for i in range(0,309):
     als5[i][0]=actorId
 
 #latent semantics of movie
-mls1=np.zeros((86,2))
-mls2=np.zeros((86,2))
-mls3=np.zeros((86,2))
-mls4=np.zeros((86,2))
-mls5=np.zeros((86,2))
+mls1=np.zeros((countOfMovies,2))
+mls2=np.zeros((countOfMovies,2))
+mls3=np.zeros((countOfMovies,2))
+mls4=np.zeros((countOfMovies,2))
+mls5=np.zeros((countOfMovies,2))
 
 mls1[:,1]=P.U[1][:,0]
 mls2[:,1]=P.U[1][:,1]
@@ -94,7 +94,7 @@ mls3[:,1]=P.U[1][:,2]
 mls4[:,1]=P.U[1][:,3]
 mls5[:,1]=P.U[1][:,4]
 
-for i in range(0,86):
+for i in range(0,countOfMovies):
     movieId=float(str(setOfAllMovies[i]).translate(None,'(),\'L'))
     mls1[i][0]=movieId
     mls2[i][0]=movieId
@@ -105,11 +105,11 @@ for i in range(0,86):
 
 
 #latent semantics of year
-yls1=np.zeros((9,2))
-yls2=np.zeros((9,2))
-yls3=np.zeros((9,2))
-yls4=np.zeros((9,2))
-yls5=np.zeros((9,2))
+yls1=np.zeros((countOfYears,2))
+yls2=np.zeros((countOfYears,2))
+yls3=np.zeros((countOfYears,2))
+yls4=np.zeros((countOfYears,2))
+yls5=np.zeros((countOfYears,2))
 
 yls1[:,1]=P.U[2][:,0]
 yls2[:,1]=P.U[2][:,1]
@@ -117,7 +117,7 @@ yls3[:,1]=P.U[2][:,2]
 yls4[:,1]=P.U[2][:,3]
 yls5[:,1]=P.U[2][:,4]
 
-for i in range(0,9):
+for i in range(0,countOfYears):
     yearId=float(str(setOfAllYears[i]).translate(None,'(),\'L'))
     yls1[i][0]=yearId
     yls2[i][0]=yearId
@@ -178,7 +178,7 @@ actorLabel2={}
 actorLabel3={}
 actorLabel4={}
 
-for i in range(0,309):
+for i in range(0,countOfActors):
     if(kmeansActor.labels_[i]==0):
         actorLabel0[str(setOfAllActors[i]).translate(None,'(),\'L')]=1
     if(kmeansActor.labels_[i]==1):
@@ -216,7 +216,7 @@ movieLabel2={}
 movieLabel3={}
 movieLabel4={}
 
-for i in range(0,86):
+for i in range(0,countOfMovies):
     if(kmeansMovie.labels_[i]==0):
         movieLabel0[str(setOfAllMovies[i]).translate(None,'(),\'L')]=1
     if(kmeansMovie.labels_[i]==1):
@@ -255,7 +255,7 @@ yearLabel2={}
 yearLabel3={}
 yearLabel4={}
 
-for i in range(0,9):
+for i in range(0,countOfYears):
     if(kmeansYear.labels_[i]==0):
         yearLabel0[str(setOfAllYears[i]).translate(None,'(),\'L')]=1
     if(kmeansYear.labels_[i]==1):

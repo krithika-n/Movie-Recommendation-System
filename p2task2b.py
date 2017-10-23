@@ -37,15 +37,15 @@ U, s, V = numpy.linalg.svd(CoactorMatrix, full_matrices=False)
 
 print U[:,0:3].shape
 
-ls1=numpy.zeros((309,2))
-ls2=numpy.zeros((309,2))
-ls3=numpy.zeros((309,2))
+ls1=numpy.zeros((size,2))
+ls2=numpy.zeros((size,2))
+ls3=numpy.zeros((size,2))
 
 ls1[:,1]=U[:,0]
 ls2[:,1]=U[:,1]
 ls3[:,1]=U[:,2]
 
-for i in range(0,309):
+for i in range(0,size):
     actorId=float(str(actorid[i]).translate(None,'(),\'L'))
     #print actorId
     #print len(actorId[0])
@@ -69,7 +69,7 @@ label0={}
 label1={}
 label2={}
 
-for i in range(0,309):
+for i in range(0,size):
   if(kmeans.labels_[i]==0):
     label0[str(actorid[i]).translate(None,'(),\'L')]=1
     #print str(actorid[i]).translate(None,'(),\'L')
