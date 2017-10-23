@@ -3,7 +3,7 @@ import numpy
 import lda
 import lda.datasets
 import MySQLdb
-import sys
+import math
 def task1_a(genre,model):
     try:
         con = MySQLdb.connect(user='root', passwd='haha123', host='127.0.0.1', db="mwdb")
@@ -27,23 +27,25 @@ def task1_a(genre,model):
                 else:
                     for tag in tags:
                         idf=float(len(movies))/(queryexecutioner.queryActioner(con, 'select count(distinct(movieid)) from mltags where tagid ='+str(tag[0])))[0][0]
-                        movieList.append((float((queryexecutioner.queryActioner(con, 'select count(*) from mltags where tagid ='+str(tag[0])+' and movieid='+str(movie[0])))[0][0])/noOfTags)*idf)
+                        movieList.append((float((queryexecutioner.queryActioner(con, 'select count(*) from mltags where tagid ='+str(tag[0])+' and movieid='+str(movie[0])))[0][0])/noOfTags)*math.log(idf))
                     finalarray.append(movieList)
             x=numpy.array(finalarray)
-            #x=numpy.matrix.transpose(x)#dimensionality reduction on x
+            print x.shape
             if model=='1':
-                x=numpy.cov(x)#covariance of x
+                x=numpy.cov(numpy.matrix.transpose(x))#covariance of x
+            print x.shape
             U, s, V = numpy.linalg.svd(x, full_matrices=False)
-            #latent_semantics=U[:,0:3]
-            #transpose=numpy.matrix.transpose(V)
-            latent_semantics = V[0:3, :]
+            print V.shape
+            latent_semantics = V[0:4, :]
+            print 'The top 4 latent semantics are'
+            print latent_semantics
             for (key,topic) in enumerate(latent_semantics):
-                string='topic'+str(key)+'='
+                print '/-----------------------------------/'
+                print 'The topic is ' + str(key)
+                print '/-----------------------------------/'
                 sorted_tags=numpy.argsort(latent_semantics[key])[::-1]
                 for tag in sorted_tags:
-                    string+=tag_tagnames[tags[tag][0]]+'*'+str(latent_semantics[key][tag])
-                print string
-                print '--------------'
+                    print tag_tagnames[tags[tag][0]]+'='+str(latent_semantics[key][tag])
         if model=='2':
             for movie in movies:
                 movieList=[]
@@ -54,9 +56,14 @@ def task1_a(genre,model):
             model = lda.LDA(n_topics=4, n_iter=100, random_state=1)
             model.fit(x)
             topic_word = model.topic_word_
+            print 'The top 4 latent topics are'
+            print topic_word
             for key, topic in enumerate(topic_word):
-                string = str([[tag_tagnames[tags[i][0]]] for i in numpy.argsort(topic)[::-1]])
-                print 'topic' + str(key) + string
+                print '/-----------------------------------/'
+                print 'The topic is '+str(key)
+                print '/-----------------------------------/'
+                for i in numpy.argsort(topic)[::-1]:
+                    print tag_tagnames[tags[i][0]] + '=' + str(topic[i])
     except Exception as e:
         print e
 def task1_b(genre,model):
@@ -73,40 +80,38 @@ def task1_b(genre,model):
             movieList=[]
             noOfActors=queryexecutioner.queryActioner(con, 'select count(actorid) from movie_actor where movieid ='+str(movie[0]))[0][0]
             for actor in actors:
-                #print float((queryexecutioner.queryActioner(con, 'select count(*) from mltags where tagid ='+str(tag[0])+' and movieid='+str(movie[0])))[0][0])
                 idf=float(len(movies))/(queryexecutioner.queryActioner(con, 'select count(distinct(movieid)) from movie_actor where actorid ='+str(actor[0])))[0][0]
-                movieList.append((float((queryexecutioner.queryActioner(con, 'select count(*) from movie_actor where actorid ='+str(actor[0])+' and movieid='+str(movie[0])))[0][0])/noOfActors)*idf)
+                movieList.append((float((queryexecutioner.queryActioner(con, 'select count(*) from movie_actor where actorid ='+str(actor[0])+' and movieid='+str(movie[0])))[0][0])/noOfActors)*math.log(idf))
             finalarray.append(movieList)
         x=numpy.array(finalarray)
-        #x=numpy.matrix.transpose(x)
         if model=='1':
-            x=numpy.cov(x)
+            x=numpy.cov(numpy.matrix.transpose(x))
         U, s, V = numpy.linalg.svd(x, full_matrices=False)
-        latent_semantics=V[0:3,:]
-        #transpose=numpy.matrix.transpose(latent_semantics)
+        latent_semantics=V[0:4,:]
+        print 'The top 4 latent semantics are'
+        print latent_semantics
         for (key,topic) in enumerate(latent_semantics):
-            string='topic'+str(key)+'='
+            print '/-----------------------------------/'
+            print 'The topic is ' + str(key)
+            print '/-----------------------------------/'
             sorted_actors=numpy.argsort(latent_semantics[key])[::-1]
             for actor in sorted_actors:
-                string+=actor_actornames[actors[actor][0]]+'*'+str(latent_semantics[key][actor])
-            print string
-            print '--------------'
+                print actor_actornames[actors[actor][0]]+'='+str(latent_semantics[key][actor])
     if model=='2':
         for movie in movies:
             movieList=[]
             for actor in actors:
-                #print float((queryexecutioner.queryActioner(con, 'select count(*) from mltags where tagid ='+str(tag[0])+' and movieid='+str(movie[0])))[0][0])
-                #idf=float(len(movies))/(queryexecutioner.queryActioner(con, 'select count(distinct(movieid)) from movieactor where actorid ='+str(actor[0])))[0][0]
                 movieList.append(queryexecutioner.queryActioner(con, 'select count(*) from movie_actor where actorid ='+str(actor[0])+' and movieid='+str(movie[0]))[0][0])
             finalarray.append(movieList)
-        #print (finalarray)
         x = numpy.array(finalarray)
-        #x = numpy.matrix.transpose(x)
         model = lda.LDA(n_topics=4, n_iter=100, random_state=1)
         model.fit(x)
         topic_word = model.topic_word_
-        string=''
+        print topic_word
         for key,topic in enumerate(topic_word):
-            string=str([actor_actornames[actors[i][0]]for i in numpy.argsort(topic)[::-1]])
-            print 'topic'+str(key)+string
+            print '/-----------------------------------/'
+            print 'The topic is ' + str(key)
+            print '/-----------------------------------/'
+            for i in numpy.argsort(topic)[::-1]:
+                print actor_actornames[actors[i][0]] + '=' + str(topic[i])
 

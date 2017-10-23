@@ -1,0 +1,20 @@
+Task3a:
+
+running the program:
+python Task3a.py 2678332 312142 
+
+
+Output:
+('Number of iterations -', 100)
+Long, Nia
+Travolta, John
+Burn, Scott
+Vaughn, Vince
+Theron, Charlize
+Finney, Albert
+Curtis, Cliff
+Wood, Elijah
+Romano, Ray
+Blair, Selma
+
+

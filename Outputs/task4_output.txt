@@ -1,0 +1,12 @@
+Task4:
+running the program:
+python Task4.py 4681 6057 6058
+
+Output:
+('Number of iterations -', 100)
+Dawn of the Dead
+Swordfish
+Daredevil
+Starsky & Hutch
+Shanghai Knights
+

@@ -205,7 +205,7 @@ def task1d(movieid,outermode,innermode):
 	print("The top 10 most related actors to the movie with movieid = "+str(movieid)+" and movie name: '"+str(mov_name)+"' who have not acted in the movie are: ")
 	print("ActorID ActorName")
 	for actor, res in sorted_dist:
-		cur.execute("select name from imdb_actor_info where actorid=%s",(actor))
+		cur.execute("select name from imdb_actor_info where actorid=%s",(actor,))
 		name=cur.fetchone()[0]
 		print(str(actor)+" "+"'"+str(name)+"'")
 		if i==10:

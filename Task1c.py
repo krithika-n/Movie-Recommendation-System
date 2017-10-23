@@ -153,7 +153,7 @@ def task1c(actorid,outermode, innermode):
 	print("The top 10 related actors to the actor whose actor ID is: "+str(actorid)+" and name: "+str(name))
 	print("ActorID ActorName")
 	for actor, res in sorted_dist:
-		cur.execute("select name from imdb_actor_info where actorid=%s",(actor))
+		cur.execute("select name from imdb_actor_info where actorid=%s",(actor,))
 		name=cur.fetchone()[0]
 		print(str(actor)+" "+"'"+str(name)+"'")
 		if i==10:

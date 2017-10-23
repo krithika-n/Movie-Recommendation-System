@@ -17,7 +17,6 @@ if __name__ == '__main__':
 	if int(arguments[3]) == 1:
 	        Task1d.task1d(int(arguments[2]),int(arguments[3]),0)
 	else:
-		print "Arg is 2"
 		Task1d.task1d(int(arguments[2]),int(arguments[3]),int(arguments[4]))
     else:
         print 'enter valid inputs'
