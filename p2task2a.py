@@ -13,7 +13,7 @@ try:
     # connect to the database
     conn = MySQLdb.connect(host='127.0.0.1',
         user='root',
-        passwd='bavani',
+        passwd='haha123',
         db='mwdb')
     # get the db cursor object to interact with db
     cur = conn.cursor()
