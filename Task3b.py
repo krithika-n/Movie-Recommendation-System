@@ -1,4 +1,5 @@
-import mysql.connector
+
+   import mysql.connector
 import sys
 import numpy as np
 
@@ -25,13 +26,13 @@ try:
     cur = conn.cursor()
 
     #map actorid to actor name
-    cur.execute(("SELECT id,name FROM mwdb.imdb_actor_info2;"))
+    cur.execute(("SELECT id,name FROM mwdb.imdb_actor_info;"))
     for row in cur.fetchall():
         id=row[0]
         name=row[1]
         actor_name[id]=name;
     #get the number of actors
-    cur.execute(("SELECT distinct (actorid) FROM mwdb.movie_actor2;"))
+    cur.execute(("SELECT distinct (actorid) FROM mwdb.movie_actor;"))
     for row in cur.fetchall():
         row_ele=row[0]
         no_actors_set.append(row_ele)
@@ -48,7 +49,7 @@ try:
             if(actorB==actorA):
                 entry=0.0
             else:
-                cur.execute(("SELECT movieid FROM mwdb.movie_actor2 where actorid={} and movieid in (select movieid from movie_actor2 where actorid={})".format(actorA,actorB)))
+                cur.execute(("SELECT movieid FROM mwdb.movie_actor where actorid={} and movieid in (select movieid from movie_actor where actorid={})".format(actorA,actorB)))
                 res=cur.fetchall()
                 entry=len(res)
             one_row_in_array.append(entry)
@@ -83,7 +84,7 @@ try:
     mean_error = 1
     alpha = 0.85
     no_iter = 0
-    
+
     while (no_iter<100):
         #calculate pagerank with rwr approach
         term1 = alpha * np.matmul(my_array, prscore)
@@ -92,6 +93,7 @@ try:
         #set current pagerank scores as prevscore values
         no_iter = no_iter + 1
 
+  
     #sort the pagerank scores and store the rank of the sorted values in sortlist
     sortlist = np.argsort(prscore, axis=0)
 
