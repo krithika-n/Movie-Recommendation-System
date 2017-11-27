@@ -1,3 +1,6 @@
+#Task 3
+#Similar movie search
+
 import numpy
 import scipy
 from sklearn.decomposition import PCA
@@ -43,11 +46,15 @@ def closestnegative(W,mini):
 	for i in range(0,int(math.floor(mini)-1),-W):
 		val=i-W
 		if (val<=int(math.floor(mini)-1)):
+			#print val
 			return val
 
 	
 		    
 def LSH(inputvectors,L,K,moviename,R):
+	#pca = PCA(n_components=1)
+	#pca.fit(numpy.transpose(inputvectors))
+	#X=pca.transform(numpy.transpose(inputvectors))
 	temp=1
 	layer=0
 
@@ -58,22 +65,24 @@ def LSH(inputvectors,L,K,moviename,R):
 			layer=layer+temp
 			temp=1
 			
+		#temp2=temp1*L
 		values.append(layer)
-
+	#print values
 	
 
 	maxi=max(values)
 	mini=min(values)
 
-	
+	#print maxi, mini
 	for i in range(0,len(values)):
 		values[i]=((values[i]-mini)/maxi-mini)*100
 
-	
+	#print values
 
 	highestbinvalue=closestpositive(W,maxi)
 	leastbinvalue=closestnegative(W, mini)
-	
+	#print highestbinvalue
+	#print leastbinvalue
 	
 	binNo=[]
 	for i in range(0,len(values)):
@@ -83,27 +92,25 @@ def LSH(inputvectors,L,K,moviename,R):
 	Zippedmoviebins=zip(binNo,movie)
 	
 	bins=defaultdict(list)
-	
+	#for k,v in Zippedbins:
 	for k,v in Zippedmoviebins:
 		bins[k].append(v)
-
-	
 		
 
 	#for i in range(int(min(binNo)),int(max(binNo)+1) ):
 	#	print i,bins[i]
 	
-	
+	#noofbins=(highestbinvalue/W) + (abs(leastbinvalue)/W)
 
 	for i in range(int(min(binNo)),int(max(binNo)+1) ):
 		if moviename in (bins[i]):
 			topmoviesindex=i
-			
+			#print bins[i]
 			print "BinNo",topmoviesindex
 			print "Number of movies considered",len(bins[i])
-	
+	#print topmoviesindex
 	if len(bins[topmoviesindex])>R:
-		
+		#print "YES"
 		for i in range(0,R):
 			if moviename not in bins[topmoviesindex][i]:
 				suggested.append(bins[topmoviesindex][i])
@@ -132,44 +139,6 @@ def LSH(inputvectors,L,K,moviename,R):
 			   Rem=Rem-tmp
 
 
-	
-	for i in suggested:
-		print i
-
-	if ( neighbours != len(suggested)) :
-		print "not enough suggestions"
-
-	for i in range(0,neighbours):
-		print suggested[i], "\t\tpositive(1), negative(-1) or neutral(0) ??"
-		feedback.append(str(raw_input()))
-
-
-
-
-	feedback1=zip(feedback, suggested)
-	
-
-	count=0
-	for i,j in feedback1:
-				
-		if i=='1':
-			
-			print j
-			count+=1
-			bins[topmoviesindex].remove(j)
-
-			
-	
-		if i=='-1':
-			bins[topmoviesindex].remove(j)
-
-	remaining=R-count
-	if remaining != 0:
-		for i in range(0,remaining):
-			print bins[topmoviesindex][i]
-
-
-
 
 layers=int(sys.argv[1])
 hashes=int(sys.argv[2])
@@ -177,5 +146,19 @@ movieName=sys.argv[3]
 neighbours=int(sys.argv[4])
 LSH(inputMatrix,layers,hashes,movieName,neighbours)
 
+for i in suggested:
+	print i
 
+if ( neighbours != len(suggested)) :
+	print "not enough suggestions"
+
+for i in range(0,neighbours):
+	print suggested[i], "\t\tpositive(1), negative(-1) or neutral(0) ??"
+	feedback.append(str(raw_input()))
+
+print feedback
+
+zipFeed=zip(suggested,feedback)
+
+print zipFeed
 
