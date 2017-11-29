@@ -1,6 +1,3 @@
-#Task 3
-#Similar movie search
-
 import numpy
 import scipy
 from sklearn.decomposition import PCA
@@ -9,11 +6,7 @@ from collections import defaultdict
 import MySQLdb
 import sys
 
-db = MySQLdb.connect(host="localhost", 
-                      user="root", 
-                      passwd="Sairam23!!%", 
-                      db="MWD") 
-
+db = MySQLdb.connect(host="127.0.0.1", user="root", passwd="haha123", db="mwdb") 
 cursor = db.cursor() 
 movie=[]
 suggested=[]
@@ -24,14 +17,14 @@ for i in movies:
 	movie.append(i[0])
 
 
-inputMatrix=numpy.load("/home/soundarya/Downloads/MWDB/MovieTagReduced.npy")
+inputMatrix=numpy.load("MovieTagReduced.npy")
 values=[]
 W=4
 
+ 
 
-
-def H(inp,W):
-	X=numpy.random.rand(500,1)
+def H(inp,X,W):
+	
 	return (numpy.dot(inp,X)/W);
 
 def closestpositive(W,maxi):
@@ -46,43 +39,40 @@ def closestnegative(W,mini):
 	for i in range(0,int(math.floor(mini)-1),-W):
 		val=i-W
 		if (val<=int(math.floor(mini)-1)):
-			#print val
 			return val
 
 	
 		    
 def LSH(inputvectors,L,K,moviename,R):
-	#pca = PCA(n_components=1)
-	#pca.fit(numpy.transpose(inputvectors))
-	#X=pca.transform(numpy.transpose(inputvectors))
-	temp=1
-	layer=0
+	values=numpy.zeros(len(inputvectors))
+	temp=numpy.ones(len(inputvectors)) 
+	
 
-	for i in range(0,len(inputvectors)):
-		for lr in range(0,L):
-			for hashfn in range(0,K):
-				temp*=H(inputvectors[i,:],W)
-			layer=layer+temp
-			temp=1
-			
-		#temp2=temp1*L
-		values.append(layer)
-	#print values
+	
+	for lr in range(0,L):
+		for hashfn in range(0,K):
+			points=[]
+			X=numpy.random.rand(500,1)
+			for i in range(0,len(inputvectors)):
+				points.extend(H(inputvectors[i,:],X,W))
+			temp=temp*points	
+			values=values+temp
+
 	
 
 	maxi=max(values)
 	mini=min(values)
 
-	#print maxi, mini
+	
 	for i in range(0,len(values)):
 		values[i]=((values[i]-mini)/maxi-mini)*100
+		
 
-	#print values
+	
 
 	highestbinvalue=closestpositive(W,maxi)
 	leastbinvalue=closestnegative(W, mini)
-	#print highestbinvalue
-	#print leastbinvalue
+	
 	
 	binNo=[]
 	for i in range(0,len(values)):
@@ -92,39 +82,47 @@ def LSH(inputvectors,L,K,moviename,R):
 	Zippedmoviebins=zip(binNo,movie)
 	
 	bins=defaultdict(list)
-	#for k,v in Zippedbins:
+	
 	for k,v in Zippedmoviebins:
 		bins[k].append(v)
+
+	
 		
 
 	#for i in range(int(min(binNo)),int(max(binNo)+1) ):
 	#	print i,bins[i]
 	
-	#noofbins=(highestbinvalue/W) + (abs(leastbinvalue)/W)
+	
 
 	for i in range(int(min(binNo)),int(max(binNo)+1) ):
 		if moviename in (bins[i]):
 			topmoviesindex=i
-			#print bins[i]
+			no=len(bins[i])
 			print "BinNo",topmoviesindex
-			print "Number of movies considered",len(bins[i])
-	#print topmoviesindex
+			#print "Number of movies considered",len(bins[i])
+	
 	if len(bins[topmoviesindex])>R:
-		#print "YES"
+		
 		for i in range(0,R):
 			if moviename not in bins[topmoviesindex][i]:
 				suggested.append(bins[topmoviesindex][i])
 			else:
 				suggested.append(bins[topmoviesindex][R])
 	
-	if len(bins[topmoviesindex])<R:
+	if len(bins[topmoviesindex])<=R:
 		Rem=R-len(bins[topmoviesindex])
-		for i in range(0,len(bin[topmoviesindex])):
-			suggested.append(bins[topmoviesindex][i])
+		for i in range(0,len(bins[topmoviesindex])):
+			if moviename not in (bins[topmoviesindex][i]):
+				suggested.append(bins[topmoviesindex][i])
+			else:
+				Rem+=1
 		
 		while Rem>0:
+			if topmoviesindex==max(binNo):
+				topmoviesindex=min(binNo)
 			topmoviesindex+=1
-			tmp=len(bin[topmoviesindex])
+			tmp=len(bins[topmoviesindex])
+			no=no+tmp
 			if tmp>0:
 				if(tmp>=Rem):
 					for i in range(0,Rem):
@@ -137,6 +135,28 @@ def LSH(inputvectors,L,K,moviename,R):
 					Rem=Rem-tmp
 			else:
 			   Rem=Rem-tmp
+	print "Number of movies considered",no
+	print ""
+	print "Suggestions:"
+
+	
+	for i in suggested:
+		print i
+
+	if ( neighbours != len(suggested)) :
+		print "not enough suggestions"
+
+	for i in range(0,neighbours):
+		print suggested[i], "\t\tpositive(1), negative(-1) or neutral(0) ??"
+		feedback.append(str(raw_input()))
+
+
+	feedback1=zip(feedback, suggested)
+	print feedback1
+
+
+
+
 
 
 
@@ -145,20 +165,5 @@ hashes=int(sys.argv[2])
 movieName=sys.argv[3]
 neighbours=int(sys.argv[4])
 LSH(inputMatrix,layers,hashes,movieName,neighbours)
-
-for i in suggested:
-	print i
-
-if ( neighbours != len(suggested)) :
-	print "not enough suggestions"
-
-for i in range(0,neighbours):
-	print suggested[i], "\t\tpositive(1), negative(-1) or neutral(0) ??"
-	feedback.append(str(raw_input()))
-
-print feedback
-
-zipFeed=zip(suggested,feedback)
-
-print zipFeed
+	
 

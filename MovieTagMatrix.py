@@ -25,10 +25,16 @@ def get_movie_tag():
 	time_denom=max_time-min_time;
 	cur.execute("SELECT distinct movieid FROM mlmovies;")
 	allmovies=cur.fetchall()
+	movie_dict=[]
+	i=0
+	for m in allmovies:
+		movie_dict.append([m[0],i])
+		i=i+1	
 	cur.execute("SELECT count(distinct movieid) FROM mlmovies;")
 	no_of_movies=cur.fetchone()[0]
 	conn.commit()
 	for m in allmovies:
+		print "Movie:"+str(m[0])
 		count_tf={}
 		final_tfidf={}
 		timestamps={}
@@ -61,7 +67,9 @@ def get_movie_tag():
 			idf=float(math.log(float(no_of_movies)/movies_with_tag[tag]))
 			final_tfidf[tag]=count_tf[tag]*idf*timestamps[tag]
 		movietag[m[0]]=final_tfidf
-	A=pd.DataFrame(movietag).fillna(0)
-	conn.close()
+	A=pd.DataFrame(movietag).T.fillna(0)
+	np.save("MovieTag.npy",A)
+	np.save("MovieDict.npy", movie_dict)
 	return A
-
+	conn.close()
+get_movie_tag()
