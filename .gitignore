@@ -1,2 +1,6 @@
 .idea/*
 *.pyc
+Outputs/*
+Phase2_data/*
+phase2_dataset/*
+backup-file.sql
